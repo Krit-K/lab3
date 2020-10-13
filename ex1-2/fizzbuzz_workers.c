@@ -87,7 +87,7 @@ void fizzbuzz_thread( int n, void (*print_fizzbuzz)(void) ) {
 }
 
 void fizzbuzz_destroy() {
-    // sem_destroy(barrier);
+     sem_destroy(barrier);
     // sem_destroy(&obj->number);
     // sem_destroy(&obj->fizz);
     // sem_destroy(&obj->buzz);
