@@ -27,6 +27,7 @@ void phase1_barrier(barrier_t *barrier) {
   }
   sem_post(&barrier->mutex);
   sem_wait(&barrier->turnstile1);
+  sem_post(&(barrier->turnstile1));
 }
 
 void phase2_barrier(barrier_t *barrier)
@@ -36,6 +37,7 @@ void phase2_barrier(barrier_t *barrier)
       sem_post(&barrier->turnstile2);
   }
   sem_post(&barrier->mutex);
+  sem_wait(&barrier->turnstile2);
   sem_wait(&barrier->turnstile2);
 }
 
