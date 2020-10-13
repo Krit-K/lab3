@@ -12,14 +12,6 @@
 
 barrier_t *barrier;
 
-// typedef struct  {
-//     int n;
-//     sem_t number;
-//     sem_t fizz;
-//     sem_t buzz;
-//     sem_t fizz_buzz;
-// } Fizz_Buzz;
-
 void fizzbuzz_init(int n)
 {
     // Fizz_Buzz* obj = (Fizz_Buzz*) malloc(sizeof(Fizz_Buzz));
@@ -37,7 +29,7 @@ void num_thread(int n, void (*print_num)(int))
     for (int i = 1; i <= n; i++)
     {
         //if number is not divisible by 3 and 5
-        if ((i % 3 && i % 5))
+        if (!(i % 3 == 0 || i % 5 == 0))
         {
             print_num(i);
         }
@@ -74,8 +66,8 @@ void fizzbuzz_thread(int n, void (*print_fizzbuzz)(void))
     for (int i = 15; i <= n; i += 15)
     {
         print_fizzbuzz();
+        barrier_wait(barrier);
     }
-    barrier_wait(barrier);
 }
 
 void fizzbuzz_destroy()
