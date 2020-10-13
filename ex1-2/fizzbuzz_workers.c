@@ -34,8 +34,8 @@ void fizzbuzz_init ( int n ) {
 void num_thread( int n, void (*print_num)(int) ) {
     for (int i = 1; i <= n; i++) {
         //if number is not divisible by 3 and 5
-        if (i % 3 && i % 5) {
-            sem_wait(barrier);
+        if !(i % 3 || i % 5) {
+            barrier_wait(barrier);
             print_num(i);
             //check what should be printed next
             // if((i + 1) % 3 == 0 && (i + 1) % 5 == 0)
@@ -67,7 +67,7 @@ void fizz_thread( int n, void (*print_fizz)(void) ) {
 void buzz_thread( int n, void (*print_buzz)(void) ) {
     for (int i = 5; i <= n; i += 5) {
         if (i % 15) {
-            sem_wait(barrier);
+            barrier_wait(barrier);
             print_buzz();
 
             // if ((i + 1) % 3 == 0)
@@ -80,7 +80,7 @@ void buzz_thread( int n, void (*print_buzz)(void) ) {
 
 void fizzbuzz_thread( int n, void (*print_fizzbuzz)(void) ) {
     for (int i = 15; i <= n; i += 15) {
-        sem_wait(barrier);
+        barrier_wait(barrier);
         print_fizzbuzz();
         // sem_post(&obj->number);
     }
