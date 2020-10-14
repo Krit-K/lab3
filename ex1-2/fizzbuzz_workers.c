@@ -6,22 +6,13 @@
 #include "stdlib.h"
 #include "fizzbuzz_workers.h"
 #include "barrier.h" // you may use barriers if you think it can help your
-                     // implementation
-
-// declare variables to be used here
 
 barrier_t *barrier;
 
 void fizzbuzz_init(int n)
 {
-    // Fizz_Buzz* obj = (Fizz_Buzz*) malloc(sizeof(Fizz_Buzz));
     barrier = malloc(sizeof(barrier_t));
     barrier_init(barrier, 4);
-    // obj->n = n;
-    // sem_init(&obj->number, 0, 1);
-    // sem_init(&obj->fizz, 0, 0);
-    // sem_init(&obj->buzz, 0, 0);
-    // sem_init(&obj->fizz_buzz, 0, 0);
 }
 
 void num_thread(int n, void (*print_num)(int))
@@ -39,11 +30,14 @@ void num_thread(int n, void (*print_num)(int))
 
 void fizz_thread(int n, void (*print_fizz)(void))
 {
-    for (int i = 3; i < n; i += 3)
+    for (int i = 1; i <= n; i++)
     {
-        if (i % 15)
+        if (i % 3 == 0)
         {
-            print_fizz();
+            if (i % 15)
+            {
+                print_fizz();
+            }
         }
         barrier_wait(barrier);
     }
@@ -51,11 +45,14 @@ void fizz_thread(int n, void (*print_fizz)(void))
 
 void buzz_thread(int n, void (*print_buzz)(void))
 {
-    for (int i = 5; i <= n; i += 5)
+    for (int i = 1; i <= n; i++)
     {
-        if (i % 15)
+        if (i % 5 == 0)
         {
-            print_buzz();
+            if (i % 15)
+            {
+                print_buzz();
+            }
         }
         barrier_wait(barrier);
     }
@@ -63,9 +60,12 @@ void buzz_thread(int n, void (*print_buzz)(void))
 
 void fizzbuzz_thread(int n, void (*print_fizzbuzz)(void))
 {
-    for (int i = 15; i <= n; i += 15)
+    for (int i = 1; i <= n; i++)
     {
-        print_fizzbuzz();
+        if (i % 15 == 0)
+        {
+            print_fizzbuzz();
+        }
         barrier_wait(barrier);
     }
 }
