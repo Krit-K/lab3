@@ -13,11 +13,14 @@
 
 typedef struct exit_controller
 {
-    int noOfPriorities, highestPriority, isFirst, hasQueue;
-    int *priorityArrPtr;
-    sem_t mutex1;
+    sem_t gate;
     sem_t semaphore;
     sem_t *semaphoreArrPtr;
+    int prioritiesNum;
+    int highestPriority;
+    int isFirst;
+    int hasQueue;
+    int *priorityArrPtr;
 } exit_controller_t;
 
 void exit_controller_init(exit_controller_t *exit_controller, int no_of_priorities);
