@@ -64,9 +64,7 @@ void exit_controller_post(exit_controller_t *exit_controller, int priority)
     exit_controller->hasQueue = 0;
 
     exit_controller->highestPriority = exit_controller->prioritiesNum - 1;
-
     (*(exit_controller->priorityPtr + priority))--;
-    int i = 0;
     for (int i = 0; i < exit_controller->prioritiesNum; i++)
     {
         if (*(exit_controller->priorityPtr + i) != 0)
