@@ -97,6 +97,6 @@ void exit_controller_destroy(exit_controller_t *exit_controller)
     }
     sem_destroy(&exit_controller->gate);
     sem_destroy(&exit_controller->semaphore);
-    free(exit_controller->priorityArrPtr);
-    free(exit_controller->semaphoreArrPtr);
+    // free(exit_controller->priorityArrPtr);
+    // free(exit_controller->semaphoreArrPtr);
 }
