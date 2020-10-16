@@ -7,7 +7,7 @@ void entry_controller_init(entry_controller_t *entry_controller, int loading_bay
 {
     sem_init(&entry_controller->logicGate, 0, 1); //binary sempahore for signalling
     sem_init(&entry_controller->gate2, 0, 1);
-    sem_init(&entry_controller->gate3, 0, 1);
+    // sem_init(&entry_controller->gate3, 0, 1);
     sem_init(&entry_controller->semaphore, 0, loading_bays); //modifying data
     entry_controller->queueHead = malloc(sizeof(sem_t) * ENTRY_CONTROLLER_MAX_USES);
     entry_controller->queueStart = 0;
@@ -45,9 +45,9 @@ void entry_controller_wait(entry_controller_t *entry_controller)
         sem_post(&entry_controller->logicGate);
     }
     sem_wait(&entry_controller->semaphore);
-    sem_wait(&entry_controller->gate3);
+    // sem_wait(&entry_controller->gate3);
     entry_controller->loadingBays--;
-    sem_post(&entry_controller->gate3);
+    // sem_post(&entry_controller->gate3);
 }
 void entry_controller_post(entry_controller_t *entry_controller)
 {
@@ -56,9 +56,9 @@ void entry_controller_post(entry_controller_t *entry_controller)
     { //there is a queue then go in if, signal to the queue
         sem_post(entry_controller->queueHead + entry_controller->queueStart);
     }
-    sem_wait(&(entry_controller->gate3));
+    // sem_wait(&(entry_controller->gate3));
     entry_controller->loadingBays++;
-    sem_post(&(entry_controller->gate3));
+    // sem_post(&(entry_controller->gate3));
     sem_post(&(entry_controller->gate2));
     sem_post(&(entry_controller->semaphore));
 }
@@ -67,7 +67,7 @@ void entry_controller_destroy(entry_controller_t *entry_controller)
 {
     sem_destroy(&(entry_controller->logicGate));
     sem_destroy(&(entry_controller->gate2));
-    sem_destroy(&(entry_controller->gate3));
+    // sem_destroy(&(entry_controller->gate3));
     sem_destroy(&(entry_controller->semaphore));
     for (int i = 0; i < ENTRY_CONTROLLER_MAX_USES; i++)
     {
