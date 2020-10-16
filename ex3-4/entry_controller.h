@@ -3,14 +3,12 @@
 
 #include <semaphore.h>
 
-#define ENTRY_CONTROLLER_MAX_USES 5000 // we impose a limit on the number of uses we can \
-                                       // have
+#define ENTRY_CONTROLLER_MAX_USES 5000 // we impose a limit on the number of uses we can have
 
 typedef struct entry_controller
 {
     sem_t logicGate;
     sem_t gate2;
-    sem_t gate3;
     int queueStart;
     int queueEnd;
     int loadingBays;
