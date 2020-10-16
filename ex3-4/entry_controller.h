@@ -1,9 +1,3 @@
-/**
- * CS2106 AY 20/21 Semester 1 - Lab 3
- *
- * This file contains declarations. You should only modify the entry_controller_t struct,
- * as the method signatures will be needed to compile with the runner.
- */
 #ifndef __CS2106_ENTRY_CONTROLLER_H_
 #define __CS2106_ENTRY_CONTROLLER_H_
 

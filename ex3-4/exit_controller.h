@@ -1,9 +1,3 @@
-/**
- * CS2106 AY 20/21 Semester 1 - Lab 3
- *
- * This file contains declarations. You should only modify the exit_controller_t struct,
- * as the method signatures will be needed to compile with the runner.
- */
 #ifndef __CS2106_EXIT_CONTROLLER_H_
 #define __CS2106_EXIT_CONTROLLER_H_
 
@@ -15,12 +9,12 @@ typedef struct exit_controller
 {
     sem_t gate;
     sem_t semaphore;
-    sem_t *semaphoreArrPtr;
+    sem_t *semaphorePtr;
     int prioritiesNum;
     int highestPriority;
     int isFirst;
     int hasQueue;
-    int *priorityArrPtr;
+    int *priorityPtr;
 } exit_controller_t;
 
 void exit_controller_init(exit_controller_t *exit_controller, int no_of_priorities);

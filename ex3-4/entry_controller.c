@@ -1,8 +1,3 @@
-/**
- * CS2106 AY 20/21 Semester 1 - Lab 3
- *
- * Your implementation should go in this file.
- */
 #include "entry_controller.h"
 #include "semaphore.h"
 #include "stdio.h"
@@ -37,13 +32,10 @@ void entry_controller_wait(entry_controller_t *entry_controller)
     {
         int queueNumber = entry_controller->queueEnd;
         entry_controller->queueEnd = (entry_controller->queueEnd + 1) % ENTRY_CONTROLLER_MAX_USES;
-
         sem_post(&entry_controller->gate2);
         sem_post(&entry_controller->logicGate);
-
         sem_wait(entry_controller->queueHead + queueNumber);
         sem_wait(&entry_controller->gate2);
-
         entry_controller->queueStart = (entry_controller->queueStart + 1) % ENTRY_CONTROLLER_MAX_USES;
         sem_post(&entry_controller->gate2);
     }
@@ -53,7 +45,6 @@ void entry_controller_wait(entry_controller_t *entry_controller)
         sem_post(&entry_controller->logicGate);
     }
     sem_wait(&entry_controller->semaphore);
-
     sem_wait(&entry_controller->gate3);
     entry_controller->loadingBays--;
     sem_post(&entry_controller->gate3);
@@ -65,11 +56,9 @@ void entry_controller_post(entry_controller_t *entry_controller)
     { //there is a queue then go in if, signal to the queue
         sem_post(entry_controller->queueHead + entry_controller->queueStart);
     }
-
     sem_wait(&(entry_controller->gate3));
     entry_controller->loadingBays++;
     sem_post(&(entry_controller->gate3));
-
     sem_post(&(entry_controller->gate2));
     sem_post(&(entry_controller->semaphore));
 }
@@ -80,7 +69,7 @@ void entry_controller_destroy(entry_controller_t *entry_controller)
     sem_destroy(&(entry_controller->gate2));
     sem_destroy(&(entry_controller->gate3));
     sem_destroy(&(entry_controller->semaphore));
-    for (int i = 0; i < 5000; i++)
+    for (int i = 0; i < ENTRY_CONTROLLER_MAX_USES; i++)
     {
         sem_destroy(entry_controller->queueHead + i);
     }
