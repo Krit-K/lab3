@@ -78,7 +78,7 @@ void exit_controller_post(exit_controller_t *exit_controller, int priority)
         {
             exit_controller->hasQueue = 1;
             exit_controller->highestPriority = i;
-            // break;
+            break;
         }
     }
     if (exit_controller->hasQueue == 1)
